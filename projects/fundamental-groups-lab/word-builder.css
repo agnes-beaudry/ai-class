@@ -1,0 +1,143 @@
+.word-builder {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffaf1;
+}
+
+.word-builder div {
+  display: flex;
+  gap: 8px;
+}
+
+.word-builder input {
+  min-width: 0;
+  flex: 1;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: white;
+  font: 700 1rem Georgia;
+}
+
+.word-builder button {
+  padding: 10px 13px;
+  border: 0;
+  border-radius: 9px;
+  color: white;
+  background: var(--ink);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.word-builder p {
+  min-height: 1.3em;
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: .76rem;
+}
+
+.word-builder p.error {
+  color: #b43c31;
+}
+
+.word-builder .secondary {
+  width: 100%;
+  margin-top: 5px;
+  color: var(--ink);
+  background: white;
+}
+
+.simplification {
+  margin: 10px 0 5px;
+  padding: 11px;
+  border-radius: 8px;
+  background: #f1e8da;
+  text-align: center;
+  font: 700 1rem Georgia;
+}
+
+#diagram {
+  cursor: default;
+}
+
+.generator-tools {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.generator-tools summary {
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.generator-tools fieldset {
+  margin-top: 14px;
+}
+
+@media (min-width: 1101px) {
+  .explorer {
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    max-width: 1480px;
+    align-items: start;
+  }
+
+  .visual-stack {
+    position: sticky;
+    top: 88px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .visual-stack .canvas-card {
+    align-self: stretch;
+    min-width: 0;
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .visual-stack .viz-heading {
+    min-height: 82px;
+    align-items: start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .visual-stack .viz-heading p {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+@media (min-width: 1101px) and (max-height: 800px) {
+  .explorer {
+    padding-top: 48px;
+    padding-bottom: 60px;
+  }
+
+  .visual-stack {
+    top: 78px;
+    gap: 16px;
+  }
+
+  .visual-stack .canvas-card {
+    padding: 15px;
+  }
+
+  .visual-stack .viz-heading {
+    min-height: 66px;
+    margin-bottom: 2px;
+  }
+
+  .visual-stack .viz-heading h3 {
+    font-size: 1.4rem;
+  }
+
+  .visual-stack .viz-heading p {
+    font-size: .74rem;
+  }
+}

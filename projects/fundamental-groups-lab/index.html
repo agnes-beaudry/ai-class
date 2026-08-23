@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore fundamental groups arising from polygon and graph gluings.">
+  <title>Loop Lab — Fundamental Groups from Gluing</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="visualizations.css">
+  <link rel="stylesheet" href="word-builder.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Loop Lab home"><span>π₁</span> Loop Lab</a>
+    <nav><a href="#explorer">Explorer</a><a href="#method">How it works</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">ALGEBRAIC TOPOLOGY, MADE TANGIBLE</p>
+      <h1>Glue edges.<br><em>Discover loops.</em></h1>
+      <p class="lede">See how a space's gluing instructions become generators and relations for its fundamental group.</p>
+      <a class="cta" href="#explorer">Open the explorer ↓</a>
+      <div class="orbit" aria-hidden="true"><span>a</span><span>b</span><i></i></div>
+    </section>
+
+    <section class="explorer" id="explorer">
+      <div class="controls">
+        <p class="eyebrow">CHOOSE A QUOTIENT SPACE</p>
+        <h2>Gluing explorer</h2>
+        <label for="example">Construction</label>
+        <select id="example"></select>
+
+        <form id="word-form" class="word-builder">
+          <label for="group-word">Draw a group element</label>
+          <div><input id="group-word" value="ab" placeholder="e.g. a^2 b^-1" autocomplete="off" spellcheck="false"><button type="submit">Draw loop</button></div>
+          <p id="word-help">Use a, b, inverses such as a^-1, and integer powers.</p>
+          <button id="animate" class="secondary" type="button">▶ Trace group element</button>
+          <button id="simplify" class="secondary" type="button">Simplify</button>
+          <div id="simplification" class="simplification" hidden></div>
+          <button id="show-homotopy" class="secondary" type="button" hidden>Show homotopy</button>
+        </form>
+
+        <div class="gluing-card">
+          <span>Boundary / attaching word</span>
+          <strong id="word"></strong>
+          <p id="gluing-description"></p>
+        </div>
+
+        <div class="result">
+          <span>Fundamental group</span>
+          <div id="group"></div>
+          <p id="explanation"></p>
+        </div>
+
+        <details class="generator-tools">
+          <summary>Generator reference</summary>
+          <fieldset>
+            <legend>Highlight a generator</legend>
+            <div id="generator-buttons" class="generator-buttons"></div>
+          </fieldset>
+        </details>
+      </div>
+
+      <div class="visual-stack">
+        <div class="canvas-card gluing-diagram-card">
+          <div class="viz-heading"><div><span>01 · THE INSTRUCTIONS</span><h3>Fundamental polygon</h3></div><p>Matching edge arrows are identified; the gold path is your group element.</p></div>
+          <canvas id="gluing-diagram" width="900" height="470" aria-label="Polygon with edge gluing instructions"></canvas>
+        </div>
+        <div class="canvas-card surface-card">
+          <div class="viz-heading"><div><span>02 · THE QUOTIENT</span><h3 id="surface-title">The glued space</h3></div><p>The gold path represents the group element entered at left.</p></div>
+          <canvas id="diagram" width="900" height="620" aria-label="Interactive visualization of the glued space"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="method" id="method">
+      <p class="eyebrow">THE VAN KAMPEN RECIPE</p>
+      <h2>From geometry to a presentation</h2>
+      <div class="steps">
+        <article><b>1</b><h3>Pick loops</h3><p>After gluing, named edge pairs become loop generators based at the identified vertex.</p></article>
+        <article><b>2</b><h3>Read the boundary</h3><p>Walk around the polygon. A reversed arrow contributes an inverse, such as a⁻¹.</p></article>
+        <article><b>3</b><h3>Attach the face</h3><p>The filled polygon makes its boundary loop null-homotopic, so its word becomes a relation.</p></article>
+        <article><b>4</b><h3>Simplify</h3><p>Write generators and relations as ⟨ generators | relations ⟩ and recognize the group when possible.</p></article>
+      </div>
+      <aside><strong>Key idea.</strong> The drawing is a one-vertex CW model: loops are the 1-cells, while the relation comes from attaching a 2-cell.</aside>
+    </section>
+  </main>
+
+  <footer>Loop Lab · A browser experiment in algebraic topology</footer>
+  <script src="app.js"></script>
+</body>
+</html>
