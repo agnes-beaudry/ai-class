@@ -103,7 +103,11 @@ Never commit passwords, API keys, private data, or environment files. Remember t
 
 ## 6. Publish the visualization with GitHub Pages
 
-The workflow above has set up your visualization so it can be published as a website. For a public repository:
+GitHub Pages needs to be enabled only **once for each repository**.
+
+### The first time you publish from the repository
+
+For a public repository:
 
 1. Open the repository on GitHub.
 2. Go to **Settings → Pages**.
@@ -117,6 +121,12 @@ If the repository is named `REPOSITORY`, a project stored at `projects/my-visual
 ```text
 https://USERNAME.github.io/REPOSITORY/projects/my-visualization/
 ```
+
+### After GitHub Pages is enabled
+
+You do not need to repeat the setup above. Whenever you commit new changes and push them to `main`, GitHub updates the website at the same public address. Wait a few minutes, then refresh the public page to see the new version.
+
+> **For example—you can say this in your own words:** “Push my latest commit to `main`, then help me check that the public GitHub Pages site has updated.”
 
 If the public page does not look right, tell Codex what you see and ask it to help fix the publication.
 
