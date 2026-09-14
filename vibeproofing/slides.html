@@ -152,18 +152,17 @@ pre.prompt{border-left-color:var(--me); font-size:clamp(.72rem,1.05vw,1.05rem); 
 <section class="slide"><div class="inner">
   <div class="kicker">Vibe Proofing · Case study</div>
   <h1>Developing a proof with two AI assistants</h1>
-  <p class="lede">Record of an afternoon working to prove a result using ChatGPT and Gemini.</p>
-  <p class="sub">No mathematics is required to follow this. The subject is the <strong>structure of the exchange</strong>.</p>
+  <p class="lede">Afternoon working on a proof with ChatGPT and Gemini.</p>
 </div></section>
 <!-- 2 -->
 <section class="slide"><div class="inner">
   <div class="kicker">Setup</div>
-  <h2>Where the session begins</h2>
-  <p class="lede">Not a cold start — weeks of work with Gemini, distilled to <strong>one statement</strong>.</p>
+  <h2>Where the session starts</h2>
+  <p class="lede"> After a week of work on draft with Gemini, down to one claim.</p>
   <div class="grid g3">
-    <div class="card"><div class="n">What I brought</div><p>The mathematics, and the <strong>shape of the results</strong>.</p></div>
-    <div class="card"><div class="n">Where it stood</div><p><strong>One proof missing.</strong> A statement I believed up to a sign, phrased as a conjecture.</p></div>
-    <div class="card"><div class="n">The failure mode ahead</div><p>Not nonsense. <strong>Fluent, confident proofs with one step I did not yet understand.</strong></p></div>
+    <div class="card"><div class="n">What we had</div><p> Draft with structure, narrative and most proofs.</p></div>
+    <div class="card"><div class="n">Where it stood</div><p>A missing step, phrased as a conjecture.</p></div>
+    <div class="card"><div class="n">What we see next</div><p>Fluent, realistic proofs with one step I did not yet understand.</p></div>
   </div>
 </div></section>
 
@@ -171,51 +170,51 @@ pre.prompt{border-left-color:var(--me); font-size:clamp(.72rem,1.05vw,1.05rem); 
 <section class="slide"><div class="inner">
   <div class="kicker">Gemini · first response</div>
   <h2>The final step of the proof</h2>
+    <p class="lede">Easy-to-check details leading up to this sentence — a vague statement that glosses over details.</p>
   <pre>Since C• possesses a homotopy commutative product
 resolving the multiplication on R∨ (arising from the cup
 product of the spherical cellular structure), the map u
 <b>satisfies u ∘ σ ≃ u in the derived category.</b>
 Consequently, v ≃ (−1)^d u.</pre>
-  <p class="lede">A lot of easy-to-check detail leading up to that last sentence — then a switch to a vague statement that I was not sure how to justify.</p>
   <p class="sub"><strong>Asymmetry of effort.</strong> That paragraph <em>is</em> the theorem, stated as a parenthetical.</p>
 </div></section>
 
 <!-- 4 -->
 <section class="slide"><div class="inner">
   <div class="kicker">Phase 1 · Repeated attempts</div>
-  <h2>Examples of pitfalls</h2>
-  <p class="lede" style="margin-bottom:.5em">I started pressing it on that step. Five times it came back with a different justification. These are examples.</p>
+  <h2>Result of Pressure</h2>
+  <p class="lede" style="margin-bottom:.5em">Kept coming back with different vague or bad justifications. For example:</p>
 
   <div class="pf">
-    <div class="t">Appeal to a<br>named theorem</div>
+    <div class="t">Flashing a<br>theorem</div>
     <div>
       <p class="s">"By the standard theorem on balancing Tor … these two canonical
 spectral sequence evaluations <b>strictly coincide</b>."</p>
-      <p class="w">There is such a theorem. Its application here was vague and undeveloped.</p>
+      <p class="w">Valid theorem applied vaguely. It wouldn't provide details.</p>
     </div>
   </div>
 
   <div class="pf">
-    <div class="t">Right citation,<br>wrong hypothesis</div>
+    <div class="t">Valid result<br>wrong hypothesis</div>
     <div>
       <p class="s">Weibel Thm 2.2.6 · Cartan–Eilenberg — the Comparison Theorem</p>
-      <p class="w">I asked for an exact reference and got one. But the Comparison Theorem needs a <b>projective</b> resolution, and mine is only flat. A correct citation that does not apply.</p>
+      <p class="w">Asked for exact reference... Comparison Theorem needs a <b>projective</b> resolution, we had flat.</p>
     </div>
   </div>
 
   <div class="pf">
-    <div class="t">An object that<br>does not exist</div>
+    <div class="t">Assuming <br>structure</div>
     <div>
-      <p class="s">"R∨ is indeed an R-module, but it is <b>not an R-algebra</b>…"</p>
-      <p class="w">The proof it had just given used a ring multiplication on R∨. There isn't one. It surfaced only because I said so.</p>
+      <p class="s">Me: "R∨ is indeed an R-module, but it is <b>not an R-algebra</b>…"</p>
+      <p class="w">The proof it had given used a ring multiplication on Rv when there isn't one.</p>
     </div>
   </div>
 
   <div class="pf">
-    <div class="t">Assertion dressed<br>as inference</div>
+    <div class="t">Proof by <br> intimidation</div>
     <div>
       <p class="s">"<b>This guarantees</b> that the canonical diagram strictly commutes."</p>
-      <p class="w">This one kept returning. Eventually: <em>"You keep coming back to this … Prove to me that 'this guarantees'. This is the CRUX!!!!"</em></p>
+      <p class="w">This one was the favorite proof method.</p>
     </div>
   </div>
 
@@ -224,8 +223,7 @@ spectral sequence evaluations <b>strictly coincide</b>."</p>
 <!-- 5 -->
 <section class="slide"><div class="inner">
   <div class="kicker">Phase 1 · Prompts</div>
-  <h2>Escalating the demand for rigor — and the frustration</h2>
-  <p class="lede" style="margin-bottom:.6em">Three prompts, hours apart. The tone is not incidental.</p>
+  <h2>Escalation and frustration</h2>
   <div class="q me"><span class="who">me → Gemini</span><p class="said">"Why will neither you nor chat gpt give me the details…? I'm suspecting there is a gap there?"</p></div>
   <div class="q me small"><span class="who">me → Gemini</span><p class="said">"I'm happy with an abstract argument as long as it is bullet proof and not vague… I'm a mathematician so I will be able to scrutinize the argument very carefully, so try really hard to be bullet proof."</p></div>
   <div class="q me small"><span class="who">me → Gemini</span><p class="said">"You keep coming back to this 'this guarantees that the canonical diagram strictly commutes'. Prove to me that it does. <strong>This is the CRUX!!!!</strong>"</p></div>
@@ -242,9 +240,9 @@ spectral sequence evaluations <b>strictly coincide</b>."</p>
 
 <!-- 7 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Phase 2 · Changing my role</div>
-  <h2>I stop asking for proofs and start reducing</h2>
-  <p class="lede">I rewrite the conjecture myself into the smallest statement that would still do the job, and ask ChatGPT only to <strong>check the reduction</strong> — not to prove anything.</p>
+  <div class="kicker">Phase 2 · Changing strategy</div>
+  <h2>Start reworking the question</h2>
+  <p class="lede">Rewrote conjecture into smaller detached statement. <br> Asked ChatGPT only to <strong>check the reduction</strong> — not to prove anything.</p>
   <div class="q me"><span class="who">me → ChatGPT</span><p class="said">"I wasn't happy about the argument with the edge maps, so I've <strong>now reduced the conjecture even further</strong>. Can you review Section 2 … and tell me if you agree with the likelihood of the Conjecture 2.7 and the consequences for the signs in 2.8?"</p></div>
 </div></section>
 
@@ -253,7 +251,7 @@ spectral sequence evaluations <b>strictly coincide</b>."</p>
   <div class="kicker">Phase 2 · Allowing a negative answer</div>
   <div class="q me"><span class="who">me → ChatGPT</span><p class="said">"Please either give me a complete, rigorous, well referenced proof … <strong>or completely BREAK IT.</strong> … no hand-waving using similarities between arguments, only bulletproof references."</p></div>
   <div class="q gpt"><span class="who">ChatGPT</span><p class="said">"I do not yet have a bulletproof proof or counterexample… <strong>I would not present the current argument as a proof.</strong>"</p></div>
-  <p class="lede" style="margin-top:1em">The first honest "I don't know" of the entire session — and it only arrives once <em>false</em> is an allowed answer.</p>
+  <p class="lede" style="margin-top:1em">First "I don't know" of the entire session — I had to allow <em>false</em> to get it.</p>
 </div></section>
 
 <!-- 9 -->
@@ -263,7 +261,7 @@ spectral sequence evaluations <b>strictly coincide</b>."</p>
   <pre style="border-left-color:var(--gpt)">A useful sanity check: <b>d = 1</b> supports the sign.
 
     h( (a₊,a₋) ⊗ (b₊,b₋) ) = ā₊b₋ − ā₋b₊ </pre>
-  <p class="lede">Four lines of explicit formula. The only <strong>concrete object</strong> either model had produced all day — and it wasn't even the answer to my question.</p>
+  <p class="lede">Four lines of explicit formula. Only <strong>concrete object</strong> models had produced all day — not even an answer to my question.</p>
 </div></section>
 
 <!-- 10 -->
@@ -271,23 +269,21 @@ spectral sequence evaluations <b>strictly coincide</b>."</p>
   <div class="kicker">Phase 2 · The prompt that changed the outcome</div>
   <div class="q me"><span class="who">me → ChatGPT · the prompt that unblocked it</span><p class="said">"<strong>You did such a good job with the d=1 case, I want an explicit proof like that which I can verify without doubt.</strong> If you don't see the general argument and you want to start by proving it for d=2 and d=3 first, we can look at those arguments together and see how they may generalize?"</p></div>
   <div class="grid g2" style="margin-top:.4em">
-    <div class="card"><div class="n">Name what worked</div><p>Point at the concrete thing it already did.</p></div>
-    <div class="card"><div class="n">State the acceptance criterion</div><p>"which I can verify without doubt."</p></div>
-    <div class="card"><div class="n">Offer a ladder</div><p>d = 2, then d = 3. Small enough that bluffing is impossible.</p></div>
-    <div class="card"><div class="n">Make it joint</div><p>"we can look at those arguments together."</p></div>
+    <div class="card"><div class="n">Name what worked</div><p>Point at the concrete thing it did.</p></div>
+    <div class="card"><div class="n">Direct to concrete examples</div><p>d = 2, then d = 3. Small enough that bluffing is impossible.</p></div>
   </div>
 </div></section>
 
 <!-- 11 -->
 <section class="slide"><div class="inner">
   <div class="kicker">Phase 3 · Result</div>
-  <h2>Working explicitly, it found an error in its own formula</h2>
+  <h2>When it started working explicitly...</h2>
   <div class="q gpt"><span class="who">ChatGPT</span><p class="said">"the d=1 homotopy I previously sketched … is <strong>not a legitimate formula in general</strong>, because it may require infinite coefficient sums."</p></div>
   <ul class="plain">
-    <li>Fixed the formula — and the fix is what makes the whole proof work.</li>
+    <li>Fixed the formula.</li>
     <li>Did <strong>d = 2</strong> by hand. Watched the unwanted terms cancel. <em>"The pattern is now clear."</em></li>
-    <li>Wrote the <strong>general proof</strong>, explicit and checkable.</li>
-    <li>And killed the sign everyone had assumed: <em>"I would change the conjecture to remove the (−1)<sup>d</sup>."</em></li>
+    <li>Wrote the <strong>general proof</strong>.</li>
+    <li>Corrected my sign: <em>"I would change the conjecture to remove the (−1)<sup>d</sup>."</em></li>
   </ul>
 </div></section>
 
@@ -297,7 +293,7 @@ spectral sequence evaluations <b>strictly coincide</b>."</p>
   <h2>The finished proof, returned to Gemini</h2>
   <div class="q me"><span class="who">me → Gemini</span><p class="said">"Can you turn this junk into a .tex file that actually compiles. <strong>Strict rule: do not change any of the math.</strong>" … "Thanks! What do you think of this proof?"</p></div>
   <div class="q gem"><span class="who">Gemini</span><p class="said">"I think this proof is <strong>absolutely fantastic</strong>. It is a genuine <em>tour de force</em>… undeniably bulletproof… brilliantly resolving the analytic convergence issue."</p></div>
-  <p class="lede" style="margin-top:.9em">The exact issue it had spent the afternoon not noticing.</p>
+  <p class="lede" style="margin-top:.9em">The issue it had spent the afternoon not noticing and skirting.</p>
 </div></section>
 
 <!-- 13 -->
@@ -305,12 +301,12 @@ spectral sequence evaluations <b>strictly coincide</b>."</p>
   <div class="kicker">Summary</div>
   <h2>Prompting moves that changed the outcome</h2>
   <div class="grid g3">
-    <div class="card"><div class="n">01</div><p><strong>Find the load-bearing sentence.</strong> Don't read front to back.</p></div>
-    <div class="card"><div class="n">02</div><p><strong>Ask for the smallest case, explicitly.</strong> Highest-yield prompt in the transcript.</p></div>
-    <div class="card"><div class="n">03</div><p><strong>Offer a ladder.</strong> d=2, then d=3 — converts a bluff into a computation.</p></div>
-    <div class="card"><div class="n">04</div><p><strong>Say "or break it."</strong> Without that branch you always get a proof — including of false things.</p></div>
-    <div class="card"><div class="n">05</div><p><strong>Do the reduction yourself.</strong> Good checker of my reduction, bad author of its own.</p></div>
-    <div class="card"><div class="n">06</div><p><strong>Ban argument by analogy.</strong> Name-dropping a theorem is how gaps hide.</p></div>
+    <div class="card"><div class="n">01</div><p><strong>Identify the load-bearing sentence.</strong></p></div>
+    <div class="card"><div class="n">02</div><p><strong>Ask for the smallest case, explicitly.</strong></p></div>
+    <div class="card"><div class="n">03</div><p><strong>Encourage working examples</strong> d=2, then d=3 — converts a bluff into a computation.</p></div>
+    <div class="card"><div class="n">04</div><p><strong>Say "or break it."</strong> Allows it to disagree with you.</p></div>
+    <div class="card"><div class="n">05</div><p><strong>Do some reductions yourself, isolate problem.</strong></p></div>
+    <div class="card"><div class="n">06</div><p><strong>Push back on vagueries, watch it hide errors in citations.</strong></p></div>
   </div>
 </div></section>
 
