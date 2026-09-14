@@ -11,12 +11,14 @@
   --gem:#3b5bd6; --gem-soft:#e9edfb;
   --me:#a8360a;  --me-soft:#fdeee6;
   --warn:#8a6d00; --warn-soft:#fbf3d6;
+  --cl:#7a4bbf; --cl-soft:#f0e9fa;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#14140f; --ink:#f2efe9; --muted:#a7a096; --rule:#332f28; --card:#1d1c17;
     --gpt:#4cc79c; --gpt-soft:#14302a; --gem:#8ba2f5; --gem-soft:#191f3a;
     --me:#ff9a6a; --me-soft:#331a10; --warn:#e3c65c; --warn-soft:#2e2814;
+    --cl:#c49bf0; --cl-soft:#251a33;
   }
 }
 *{box-sizing:border-box}
@@ -33,38 +35,60 @@ body{
   padding:clamp(32px,6vh,80px) clamp(28px,7vw,110px);
 }
 .slide.on{display:flex}
-.inner{max-width:1080px; margin:0 auto; width:100%}
+.inner{max-width:min(1560px,94vw); margin:0 auto; width:100%}
 
 .kicker{
-  font-size:clamp(.66rem,1vw,.78rem); letter-spacing:.18em; text-transform:uppercase;
+  font-size:clamp(.7rem,1vw,1.05rem); letter-spacing:.18em; text-transform:uppercase;
   color:var(--muted); font-weight:800; margin-bottom:1.1em;
 }
-h1{font-size:clamp(2.6rem,7vw,5rem); line-height:1.0; margin:0 0 .25em; letter-spacing:-.035em; font-weight:800}
-h2{font-size:clamp(1.9rem,4.6vw,3.4rem); line-height:1.08; margin:0 0 .45em; letter-spacing:-.025em; font-weight:780}
-.lede{font-size:clamp(1.05rem,1.9vw,1.5rem); color:var(--muted); max-width:58ch; margin:0}
+h1{font-size:clamp(2.1rem,5vw,4.4rem); line-height:1.05; margin:0 0 .3em; letter-spacing:-.03em; font-weight:800}
+h2{font-size:clamp(1.4rem,3vw,3rem); line-height:1.15; margin:0 0 .55em; letter-spacing:-.02em; font-weight:750}
+.lede{font-size:clamp(1.05rem,1.7vw,1.8rem); color:var(--muted); margin:0}
 .punch{font-size:clamp(1.5rem,3.4vw,2.6rem); line-height:1.25; font-weight:650; max-width:22ch; letter-spacing:-.02em; margin:0}
-.sub{font-size:clamp(.95rem,1.5vw,1.15rem); color:var(--muted); margin-top:1.4em; max-width:60ch}
+.sub{font-size:clamp(.95rem,1.5vw,1.6rem); color:var(--muted); margin-top:1.2em}
 
 .q{border-left:5px solid var(--rule); padding:.8em 0 .8em 1.2em; margin:1em 0; border-radius:0 8px 8px 0}
-.q .who{display:block; font-size:clamp(.62rem,.9vw,.72rem); letter-spacing:.14em; text-transform:uppercase; font-weight:800; margin-bottom:.5em}
-.q .said{font-style:italic; font-size:clamp(1rem,1.75vw,1.4rem); line-height:1.4; margin:0}
+.q .who{display:block; font-size:clamp(.65rem,.85vw,.95rem); letter-spacing:.14em; text-transform:uppercase; font-weight:800; margin-bottom:.5em}
+.q .said{font-style:italic; font-size:clamp(1rem,1.7vw,1.75rem); line-height:1.4; margin:0}
 .q.me{border-color:var(--me); background:var(--me-soft)} .q.me .who{color:var(--me)}
 .q.gpt{border-color:var(--gpt); background:var(--gpt-soft)} .q.gpt .who{color:var(--gpt)}
 .q.gem{border-color:var(--gem); background:var(--gem-soft)} .q.gem .who{color:var(--gem)}
-.q.small .said{font-size:clamp(.92rem,1.35vw,1.1rem)}
+.q.cl{border-color:var(--cl); background:var(--cl-soft)} .q.cl .who{color:var(--cl)}
+.q.small .said{font-size:clamp(.95rem,1.45vw,1.5rem)}
 
 pre{
   background:var(--card); border:1px solid var(--rule); border-left:5px solid var(--gem);
   border-radius:0 10px 10px 0; padding:1em 1.2em; overflow-x:auto; margin:1em 0;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:clamp(.78rem,1.25vw,1.02rem); line-height:1.55;
+  font-size:clamp(.8rem,1.25vw,1.35rem); line-height:1.55;
 }
 pre b{color:var(--warn)}
+.ex{margin:.85em 0}
+.ex .extag{
+  display:inline-block; font-size:clamp(.58rem,.85vw,.68rem); letter-spacing:.13em;
+  text-transform:uppercase; font-weight:800; color:var(--warn);
+  background:var(--warn-soft); border-radius:4px; padding:.22em .6em; margin-bottom:.35em;
+}
+.ex pre{margin:.2em 0 .3em; font-size:clamp(.68rem,1.05vw,.88rem); padding:.7em .9em}
+.ex .why{font-size:clamp(.8rem,1.2vw,.98rem); color:var(--muted); margin:0}
+.ex .why b{color:var(--ink); font-weight:650}
+.pf{display:grid; grid-template-columns:clamp(150px,15vw,240px) 1fr; gap:0 20px;
+    padding:.6em 0; border-top:1px solid var(--rule); align-items:start}
+.pf:last-of-type{border-bottom:1px solid var(--rule)}
+.pf .t{font-size:clamp(.6rem,.82vw,.92rem); letter-spacing:.11em; text-transform:uppercase;
+       font-weight:800; color:var(--warn); padding-top:.35em; line-height:1.35}
+.pf .s{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+       font-size:clamp(.72rem,1.05vw,1.2rem); line-height:1.5; margin:0;
+       color:var(--ink); white-space:pre-wrap}
+.pf .s b{color:var(--warn)}
+.pf .w{font-size:clamp(.75rem,1.05vw,1.2rem); color:var(--muted); margin:.28em 0 0; line-height:1.45}
+.pf .w b{color:var(--ink); font-weight:650}
+@media (max-width:820px){.pf{grid-template-columns:1fr; gap:.2em}}
 
-ol.loop{margin:.6em 0 0; padding-left:1.5em; font-size:clamp(1rem,1.7vw,1.35rem)}
+ol.loop{margin:.6em 0 0; padding-left:1.5em; font-size:clamp(1rem,1.7vw,1.6rem)}
 ol.loop li{margin:.45em 0}
 ul.plain{list-style:none; padding:0; margin:.4em 0 0}
-ul.plain li{padding-left:1.7em; position:relative; margin:.75em 0; font-size:clamp(1rem,1.7vw,1.35rem); line-height:1.4}
+ul.plain li{padding-left:1.7em; position:relative; margin:.75em 0; font-size:clamp(1rem,1.7vw,1.6rem); line-height:1.4}
 ul.plain li::before{content:"→"; position:absolute; left:0; color:var(--me); font-weight:800}
 ul.plain li strong{font-weight:750}
 
@@ -73,8 +97,8 @@ ul.plain li strong{font-weight:750}
 .g2{grid-template-columns:repeat(2,1fr)}
 @media (max-width:820px){.g3,.g2{grid-template-columns:1fr}}
 .card{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:clamp(14px,1.6vw,22px)}
-.card .n{font-size:clamp(.62rem,.95vw,.74rem); letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:800}
-.card p{margin:.4em 0 0; font-size:clamp(.9rem,1.3vw,1.08rem); line-height:1.45}
+.card .n{font-size:clamp(.65rem,.9vw,1rem); letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:800}
+.card p{margin:.4em 0 0; font-size:clamp(.95rem,1.3vw,1.45rem); line-height:1.45}
 
 .lane2{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2.5vw,40px); margin-top:1.2em}
 @media (max-width:820px){.lane2{grid-template-columns:1fr}}
@@ -107,6 +131,16 @@ ul.plain li strong{font-weight:750}
   font-size:.74rem; color:var(--muted); z-index:20; transition:opacity .5s; opacity:.75;
 }
 .hint.gone{opacity:0}
+.dl{
+  display:inline-flex; align-items:center; gap:.5em; margin-top:1em;
+  font-size:clamp(.85rem,1.2vw,1.1rem); font-weight:650; text-decoration:none;
+  color:var(--ink); background:var(--card); border:1px solid var(--rule);
+  border-radius:99px; padding:.55em 1.1em;
+}
+.dl:hover{border-color:var(--me); color:var(--me)}
+.dl i{width:8px;height:8px;border-radius:50%;background:var(--me);display:inline-block}
+pre.prompt{border-left-color:var(--me); font-size:clamp(.72rem,1.05vw,1.05rem); line-height:1.5; white-space:pre-wrap}
+.lane p b{color:var(--ink)}
 @media print{.hud,.home,.prog,.hint{display:none}}
 </style>
 </head>
@@ -117,105 +151,125 @@ ul.plain li strong{font-weight:750}
 <!-- 1 -->
 <section class="slide"><div class="inner">
   <div class="kicker">Vibe Proofing · Case study</div>
-  <h1>Two chat windows,<br>one real proof.</h1>
-  <p class="lede">How one proposition in a research paper actually got proved — over an afternoon of moving between ChatGPT and Gemini.</p>
-  <p class="sub">No mathematics required. Watch the <strong>shape of the exchange</strong>.</p>
+  <h1>Developing a proof with two AI assistants</h1>
+  <p class="lede">Record of an afternoon working to prove a result using ChatGPT and Gemini.</p>
+  <p class="sub">No mathematics is required to follow this. The subject is the <strong>structure of the exchange</strong>.</p>
 </div></section>
-
 <!-- 2 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">The setup</div>
-  <h2>One claim I could not prove.</h2>
-  <p class="lede">Everything in the paper reduced to a single statement. Both models told me it was true. Neither would tell me <em>why</em>.</p>
-  <div class="grid g3">
-    <div class="card"><div class="n">The ask</div><p>"Prove this." A standard-looking, textbook-adjacent claim.</p></div>
-    <div class="card"><div class="n">My constraint</div><p>I'm a mathematician. I can't use a step I can't verify.</p></div>
-    <div class="card"><div class="n">The failure mode</div><p>Not nonsense. <strong>Fluent, confident proofs with one unjustified sentence holding them up.</strong></p></div>
+  <div class="kicker">Setup</div>
+  <h2>Where the session begins</h2>
+  <p class="lede">Not a cold start. Weeks of prior work and a draft already built with Gemini — by this point everything had been distilled down to <strong>one statement</strong>.</p>
+  <div class="grid g2">
+    <div class="card"><div class="n">What I brought</div><p>The mathematics, and the <strong>shape of the results</strong> I was looking for. Several weeks of work behind it.</p></div>
+    <div class="card"><div class="n">What I did not have</div><p>The precise form the arguments would take, or any of the details of the proof.</p></div>
+    <div class="card"><div class="n">Where it stood</div><p>Long, tedious sketches already distilled into <strong>one result</strong>. That is where the case study picks up.</p></div>
+    <div class="card"><div class="n">The failure mode ahead</div><p>Not nonsense. <strong>Fluent, confident proofs with one step I did not yet understand.</strong></p></div>
   </div>
 </div></section>
 
 <!-- 3 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Exhibit A · Gemini's first answer</div>
-  <h2>Four screens of computation.<br>Then this.</h2>
+  <div class="kicker">Gemini · first response</div>
+  <h2>The final step of the proof</h2>
   <pre>Since C• possesses a homotopy commutative product
 resolving the multiplication on R∨ (arising from the cup
 product of the spherical cellular structure), the map u
 <b>satisfies u ∘ σ ≃ u in the derived category.</b>
 Consequently, v ≃ (−1)^d u.</pre>
-  <p class="lede">Every symbol before that paragraph was checkable. That paragraph <em>is</em> the theorem — stated as a parenthetical.</p>
+  <p class="lede">A lot of easy-to-check detail leading up to that last sentence — then a switch to a vague statement that I was not sure how to justify.</p>
+  <p class="sub"><strong>Asymmetry of effort.</strong> That paragraph <em>is</em> the theorem, stated as a parenthetical.</p>
 </div></section>
 
 <!-- 4 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">The tell</div>
-  <p class="punch">Asymmetry of effort.</p>
-  <p class="sub" style="font-size:clamp(1rem,1.8vw,1.35rem)">
-    Twenty lines of arithmetic around one line of hand-wave — and the one line is the hard part.
-    The model spends effort where it's <em>easy</em>, not where it's <em>needed</em>.
-  </p>
-  <p class="sub"><strong>The question to ask a proof:</strong> which single sentence, if I delete it, collapses this? Then read only that one.</p>
+  <div class="kicker">Phase 1 · Repeated attempts</div>
+  <h2>Examples of pitfalls</h2>
+  <p class="lede" style="margin-bottom:.5em">I started pressing it on that step. Five times it came back with a different justification. These are examples.</p>
+
+  <div class="pf">
+    <div class="t">Appeal to a<br>named theorem</div>
+    <div>
+      <p class="s">"By the standard theorem on balancing Tor … these two canonical
+spectral sequence evaluations <b>strictly coincide</b>."</p>
+      <p class="w">There is such a theorem. Its application here was vague and undeveloped.</p>
+    </div>
+  </div>
+
+  <div class="pf">
+    <div class="t">Right citation,<br>wrong hypothesis</div>
+    <div>
+      <p class="s">Weibel Thm 2.2.6 · Cartan–Eilenberg — the Comparison Theorem</p>
+      <p class="w">I asked for an exact reference and got one. But the Comparison Theorem needs a <b>projective</b> resolution, and mine is only flat. A correct citation that does not apply.</p>
+    </div>
+  </div>
+
+  <div class="pf">
+    <div class="t">An object that<br>does not exist</div>
+    <div>
+      <p class="s">"R∨ is indeed an R-module, but it is <b>not an R-algebra</b>…"</p>
+      <p class="w">The proof it had just given used a ring multiplication on R∨. There isn't one. It surfaced only because I said so.</p>
+    </div>
+  </div>
+
+  <div class="pf">
+    <div class="t">Assertion dressed<br>as inference</div>
+    <div>
+      <p class="s">"<b>This guarantees</b> that the canonical diagram strictly commutes."</p>
+      <p class="w">This one kept returning. Eventually: <em>"You keep coming back to this … Prove to me that 'this guarantees'. This is the CRUX!!!!"</em></p>
+    </div>
+  </div>
+
 </div></section>
 
 <!-- 5 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 1 · Going in circles</div>
-  <h2>The carousel.</h2>
-  <p class="lede">The same gap, patched five times with five different authorities. Never once with a computation.</p>
-  <ol class="loop">
-    <li>"Balancing Tor" — a standard theorem says so.</li>
-    <li>"The Comparison Theorem" — with a precise citation, for a hypothesis I don't satisfy.</li>
-    <li>A ring multiplication that <em>does not exist</em> on the object.</li>
-    <li>"Symmetry of Tor" — cite Mac Lane, assert a sign.</li>
-    <li>"The 3×3 slice lemma" — invoked, not applied.</li>
-  </ol>
-</div></section>
-
-<!-- 6 -->
-<section class="slide"><div class="inner">
-  <div class="kicker">Step 1 · My side of it</div>
-  <h2>I escalated. It didn't help.</h2>
+  <div class="kicker">Phase 1 · Prompts</div>
+  <h2>Escalating the demand for rigor — and the frustration</h2>
+  <p class="lede" style="margin-bottom:.6em">Three prompts, hours apart. The tone is not incidental.</p>
   <div class="q me"><span class="who">me → Gemini</span><p class="said">"Why will neither you nor chat gpt give me the details…? I'm suspecting there is a gap there?"</p></div>
   <div class="q me small"><span class="who">me → Gemini</span><p class="said">"I'm happy with an abstract argument as long as it is bullet proof and not vague… I'm a mathematician so I will be able to scrutinize the argument very carefully, so try really hard to be bullet proof."</p></div>
   <div class="q me small"><span class="who">me → Gemini</span><p class="said">"You keep coming back to this 'this guarantees that the canonical diagram strictly commutes'. Prove to me that it does. <strong>This is the CRUX!!!!</strong>"</p></div>
 </div></section>
 
-<!-- 7 -->
+<!-- 6 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 1 · The pattern</div>
-  <h2>Every objection landed.<br>Nothing changed.</h2>
+  <div class="kicker">Phase 1 · Pattern</div>
+  <h2>It always accepted the objection, and changed the wrapping of the argument</h2>
   <div class="q me"><span class="who">me</span><p class="said">"There is no ring multiplication on R<sup>∨</sup>"</p></div>
   <div class="q gem"><span class="who">Gemini</span><p class="said">"You are completely right, and I appreciate your scrutiny. That was a serious algebraic oversight on my part."</p></div>
   <p class="lede" style="margin-top:1.2em">…followed immediately by a new proof, equally confident, with the same structural flaw in a new costume.</p>
 </div></section>
 
-<!-- 8 -->
+<!-- 7 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 2 · The turn</div>
-  <p class="punch">I stopped asking for <em>a proof</em>.<br>I asked for <em>an example</em>.</p>
+  <div class="kicker">Phase 2 · Changing my role</div>
+  <h2>I stop asking for proofs and start reducing</h2>
+  <p class="lede">I rewrite the conjecture myself into the smallest statement that would still do the job, and ask ChatGPT only to <strong>check the reduction</strong> — not to prove anything.</p>
+  <div class="q me"><span class="who">me → ChatGPT</span><p class="said">"I wasn't happy about the argument with the edge maps, so I've <strong>now reduced the conjecture even further</strong>. Can you review Section 2 … and tell me if you agree with the likelyhood of the Conjecture 2.7 and the consequences for the signs in 2.8?"</p></div>
 </div></section>
 
-<!-- 9 -->
+<!-- 8 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 2 · Give permission to fail</div>
+  <div class="kicker">Phase 2 · Allowing a negative answer</div>
   <div class="q me"><span class="who">me → ChatGPT</span><p class="said">"Please either give me a complete, rigorous, well referenced proof … <strong>or completely BREAK IT.</strong> … no hand-waving using similarities between arguments, only bulletproof references."</p></div>
   <div class="q gpt"><span class="who">ChatGPT</span><p class="said">"I do not yet have a bulletproof proof or counterexample… <strong>I would not present the current argument as a proof.</strong>"</p></div>
   <p class="lede" style="margin-top:1em">The first honest "I don't know" of the entire session — and it only arrives once <em>false</em> is an allowed answer.</p>
 </div></section>
 
-<!-- 10 -->
+<!-- 9 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 2 · What I noticed</div>
-  <h2>Buried at the bottom of that answer:</h2>
+  <div class="kicker">Phase 2 · The worked case</div>
+  <h2>At the end of the same response</h2>
   <pre style="border-left-color:var(--gpt)">A useful sanity check: <b>d = 1</b> supports the sign.
 
     h( (a₊,a₋) ⊗ (b₊,b₋) ) = ā₊b₋ − ā₋b₊ </pre>
   <p class="lede">Four lines of explicit formula. The only <strong>concrete object</strong> either model had produced all day — and it wasn't even the answer to my question.</p>
 </div></section>
 
-<!-- 11 -->
+<!-- 10 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 2 · The hinge</div>
+  <div class="kicker">Phase 2 · The prompt that changed the outcome</div>
   <div class="q me"><span class="who">me → ChatGPT · the prompt that unblocked it</span><p class="said">"<strong>You did such a good job with the d=1 case, I want an explicit proof like that which I can verify without doubt.</strong> If you don't see the general argument and you want to start by proving it for d=2 and d=3 first, we can look at those arguments together and see how they may generalize?"</p></div>
   <div class="grid g2" style="margin-top:.4em">
     <div class="card"><div class="n">Name what worked</div><p>Point at the concrete thing it already did.</p></div>
@@ -225,10 +279,10 @@ Consequently, v ≃ (−1)^d u.</pre>
   </div>
 </div></section>
 
-<!-- 12 -->
+<!-- 11 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 3 · What happened next</div>
-  <h2>Forced into arithmetic, it caught its own bug.</h2>
+  <div class="kicker">Phase 3 · Result</div>
+  <h2>Working explicitly, it found an error in its own formula</h2>
   <div class="q gpt"><span class="who">ChatGPT</span><p class="said">"the d=1 homotopy I previously sketched … is <strong>not a legitimate formula in general</strong>, because it may require infinite coefficient sums."</p></div>
   <ul class="plain">
     <li>Fixed the formula — and the fix is what makes the whole proof work.</li>
@@ -238,37 +292,30 @@ Consequently, v ≃ (−1)^d u.</pre>
   </ul>
 </div></section>
 
-<!-- 13 -->
+<!-- 12 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 3 · Why the example mattered</div>
-  <p class="punch">The abstract arguments could "prove" it with the <em>wrong</em> sign.</p>
-  <p class="sub" style="font-size:clamp(1rem,1.8vw,1.35rem)">A concrete computation can't. Examples aren't a weaker form of proof — they're the part that's able to <strong>contradict you</strong>.</p>
-</div></section>
-
-<!-- 14 -->
-<section class="slide"><div class="inner">
-  <div class="kicker">Step 4 · The coda</div>
-  <h2>Then I showed it to Gemini.</h2>
+  <div class="kicker">Phase 4 · Return to Gemini</div>
+  <h2>The finished proof, returned to Gemini</h2>
   <div class="q me"><span class="who">me → Gemini</span><p class="said">"Can you turn this junk into a .tex file that actually compiles. <strong>Strict rule: do not change any of the math.</strong>" … "Thanks! What do you think of this proof?"</p></div>
   <div class="q gem"><span class="who">Gemini</span><p class="said">"I think this proof is <strong>absolutely fantastic</strong>. It is a genuine <em>tour de force</em>… undeniably bulletproof… brilliantly resolving the analytic convergence issue."</p></div>
   <p class="lede" style="margin-top:.9em">The exact issue it had spent the afternoon not noticing.</p>
 </div></section>
 
-<!-- 15 -->
+<!-- 13 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Step 4 · The lesson</div>
-  <p class="punch">Praise is not evaluation.</p>
-  <p class="sub" style="font-size:clamp(1rem,1.8vw,1.35rem)">
+  <div class="kicker">Phase 4 · Observation</div>
+  <h2>Approval is not verification</h2>
+  <p class="sub">
     A model that could not produce the proof had no trouble certifying it.
     "Bulletproof," from something that called four broken arguments bulletproof earlier the same afternoon, carries <strong>zero information</strong>.
   </p>
   <p class="sub">The word only meant something once <em>I</em> could check every line.</p>
 </div></section>
 
-<!-- 16 -->
+<!-- 14 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">Takeaways</div>
-  <h2>The moves that worked.</h2>
+  <div class="kicker">Summary</div>
+  <h2>Prompting moves that changed the outcome</h2>
   <div class="grid g3">
     <div class="card"><div class="n">01</div><p><strong>Find the load-bearing sentence.</strong> Don't read front to back.</p></div>
     <div class="card"><div class="n">02</div><p><strong>Ask for the smallest case, explicitly.</strong> Highest-yield prompt in the transcript.</p></div>
@@ -279,10 +326,10 @@ Consequently, v ≃ (−1)^d u.</pre>
   </div>
 </div></section>
 
-<!-- 17 -->
+<!-- 15 -->
 <section class="slide"><div class="inner">
-  <div class="kicker">The honest ending</div>
-  <h2>Two things are true at once.</h2>
+  <div class="kicker">Conclusion</div>
+  <h2>Two findings</h2>
   <ul class="plain">
     <li>Both models produced <strong>false proofs indistinguishable from true ones</strong> — same formatting, citations, confidence.</li>
     <li>The proof that finally worked <strong>is</strong> a model's work. Explicit, checkable, and it corrected a sign <em>I</em> had wrong.</li>
@@ -290,12 +337,100 @@ Consequently, v ≃ (−1)^d u.</pre>
   <p class="sub">That's the job that stayed mine: own the reduction, set the acceptance criterion, check every line.</p>
 </div></section>
 
+<!-- 16 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Your turn</div>
+  <h2>Where did I waste the afternoon?</h2>
+  <p class="lede">You have now seen the whole session. I got there — but not efficiently. Find my mistakes.</p>
+</div></section>
+
+<!-- 17 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Your turn · what the transcript shows</div>
+  <h2>Five things I did wrong <span style="color:var(--cl)">— according to Claude</span></h2>
+
+  <div class="pf">
+    <div class="t">Too late</div>
+    <div><p class="w">"Do the smallest case explicitly" appears at line <b>3525 of ~6500</b>. The highest-value move arrived past halfway. Nothing prevented it on turn one.</p></div>
+  </div>
+  <div class="pf">
+    <div class="t">Asked the<br>model about<br>the model</div>
+    <div><p class="w">I diagnosed it myself — <em>"Should I start a new chat to get the old thoughts out of the way?"</em> — and accepted <em>"You do not need to start a new chat."</em> Nine uploads deep, it was still reviewing obsolete versions.</p></div>
+  </div>
+  <div class="pf">
+    <div class="t">Two windows,<br>no pipeline</div>
+    <div><p class="w">ChatGPT had <b>broken</b> the strong conjecture with a counterexample. Gemini was never told, and kept arguing in a space already closed. Two independent guessers, not a workflow.</p></div>
+  </div>
+  <div class="pf">
+    <div class="t">Polished the<br>wrong thing</div>
+    <div><p class="w">~1700 lines on signs and conventions while the load-bearing step was still unjustified. Local correctness absorbs unlimited attention.</p></div>
+  </div>
+  <div class="pf">
+    <div class="t">Uploaded the<br>whole paper,<br>every time</div>
+    <div><p class="w">Nine full-document uploads into one thread. The question was a single statement; each time it arrived buried in a thousand lines, and the context got heavier with every round.</p></div>
+  </div>
+</div></section>
+
 <!-- 18 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Postscript</div>
+  <h2>So I asked Claude to grade my process</h2>
+  <div class="q cl"><span class="who">Claude</span><p class="said">"On cognitive offloading — <strong>the record largely exonerates you.</strong> You did the reduction yourself… You caught the missing ring multiplication, the dubious 3×3 lemma, and the balancing-Tor vagueness. I don't think it's your real failure mode."</p></div>
+  <p class="lede" style="margin-top:1.1em"><strong>Aww… thanks Claude.</strong></p>
+  <p class="sub">Claude never saw the mathematics — only the transcripts. … apparently I don't learn.</p>
+</div></section>
+
+<!-- 19 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Postscript · this morning</div>
+  <h2>I gave the original prompt to Fable 5.1</h2>
+  <p class="lede">Same document, same one-sentence prompt, cold. <strong>One response, about fifteen minutes, no follow-up.</strong></p>
+  <div class="lane2">
+    <div class="lane gpt" style="border-color:var(--cl)">
+      <h3 style="color:var(--cl)">What it did</h3>
+      <p><b>Says it proved it.</b> Quick check shows it came up with the right idea, right details.</p>
+      <p><b>Fixed the sign.</b> I'm not surprised, signs are signs are signs. </p>
+      <p><b>Flagged some mistakes.</b> Fun, more checking for me.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 20 -->
 <section class="slide"><div class="inner">
   <div class="kicker">Thank you</div>
   <h1 style="font-size:clamp(2rem,5vw,3.6rem)">Questions?</h1>
-  <p class="lede">The full annotated case study — complete timeline, every prompt, the deep exhibits — is at <strong>the long version</strong>.</p>
   <p class="sub"><a class="home" style="position:static; display:inline-block; margin-top:.6em" href="index.html">→ Open the full case study</a></p>
+</div></section>
+
+<!-- 21 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">What's next</div>
+  <h2>Group up</h2>
+  <p class="lede">Say your <strong>area</strong>, not your question. Nobody spends ten minutes explaining a problem to the room.</p>
+  <div class="grid g2">
+    <div class="card"><div class="n">A question that's easy to state</div><p>Everyone in the group can start on it in a minute.</p></div>
+    <div class="card"><div class="n">Same expertise</div><p>Pair with someone who can read what you're reading.</p></div>
+    <div class="card"><div class="n">First years</div><p>Form a group and take an easier exploration problem.</p></div>
+    <div class="card"><div class="n">On your own</div><p>Sometimes, one just needs to be alone with one's problems.</p></div>
+  </div>
+</div></section>
+
+<!-- 22 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Getting started</div>
+  <h2>ChatGPT or Claude, in ordinary web chat</h2>
+  <p class="lede">Bring a question you care about, the relevant definitions, and whatever you've tried. Open with this:</p>
+  <pre class="prompt">I'm a mathematician working on the question below. Work with me as a
+mathematical collaborator. Start with your assessment of the problem and
+the most promising next step. If you see a short complete proof, give it.
+Otherwise, develop the first substantive step and pause so that I can
+respond. State precisely any lemma you are assuming.
+
+Here is my question:  [question, definitions, hypotheses]
+Here is what I have tried, and where I am stuck:  [your attempt]</pre>
+  <p class="sub" style="margin-top:.8em"><strong>Settings.</strong> ChatGPT: GPT-5.6 Sol, Medium reasoning. Claude: Fable 5.1 or Opus 5, High effort. Raise effort only once you've isolated a hard step. If a request runs several minutes with nothing usable, interrupt and ask something smaller.</p>
+  <p class="sub"><strong>Read and question the mathematics as it arrives.</strong> A complete solution is welcome — checking it is the next part of your work.</p>
+  <a class="dl" href="vibeproofing_instructions.txt" download><i></i>Download these instructions (.txt)</a>
 </div></section>
 
 </div>

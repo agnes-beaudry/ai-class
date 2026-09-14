@@ -151,6 +151,20 @@ details>summary:hover{color:var(--ink)}
 .loop h3{color:var(--warn); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.6em}
 .loop ol{margin:0; padding-left:1.2em}
 .loop li{margin:.35em 0; font-size:.97rem}
+.ex{margin:1.2em 0}
+.ex .extag{
+  display:inline-block; font-size:.66rem; letter-spacing:.13em; text-transform:uppercase;
+  font-weight:800; color:var(--warn); background:var(--warn-soft);
+  border-radius:4px; padding:.24em .62em; margin-bottom:.4em;
+}
+.ex pre{
+  background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--gem);
+  border-radius:0 8px 8px 0; padding:.85em 1em; overflow-x:auto; margin:.25em 0 .45em;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.84rem; line-height:1.55;
+}
+.ex pre b{color:var(--warn)}
+.ex .why{font-size:.94rem; color:var(--muted); margin:0}
+.ex .why b{color:var(--ink); font-weight:650}
 hr.sep{border:0; border-top:1px solid var(--rule); margin:2.4em 0}
 .footer{padding:60px 0 80px; color:var(--muted); font-size:.9rem}
 .footer a{color:inherit}
@@ -183,10 +197,9 @@ hr.sep{border:0; border-top:1px solid var(--rule); margin:2.4em 0}
 <section class="slide">
   <div class="wrap">
     <div class="kicker">Vibe Proofing · Case Study</div>
-    <h1>Two chat windows,<br>one real proof.</h1>
+    <h1>Developing a proof with two AI assistants</h1>
     <p class="lede">
-      A record of how one proposition in a research paper actually got proved —
-      bouncing between ChatGPT and Gemini over one working session.
+      Record of an afternoon working to prove a result using ChatGPT and Gemini.
     </p>
     <div class="legend">
       <span><i style="background:var(--me)"></i> my prompts</span>
@@ -194,8 +207,8 @@ hr.sep{border:0; border-top:1px solid var(--rule); margin:2.4em 0}
       <span><i style="background:var(--gem)"></i> Gemini window (AI Studio)</span>
     </div>
     <p class="note" style="margin-top:2.2em">
-      You do not need to know any of the mathematics to follow this. The math is a black box.
-      Watch the <strong>shape of the exchange</strong>.
+      No mathematics is required to follow this. The subject is the
+      <strong>structure of the exchange</strong>.
     </p>
     <a class="decklink" href="slides.html"><span class="dot2"></span>Presenting this? <span class="sm">Open the 10-minute slide deck →</span></a>
   </div>
@@ -205,24 +218,34 @@ hr.sep{border:0; border-top:1px solid var(--rule); margin:2.4em 0}
 <section class="slide">
   <div class="wrap">
     <div class="kicker">Setup</div>
-    <h2>One statement I could not prove.</h2>
+    <h2>Where the session begins</h2>
     <p class="lede">
-      Everything in the paper reduced to a single claim: that two maps
-      (the "edge maps") agree up to a sign. Both models kept telling me it was true.
-      Neither would tell me <em>why</em>.
+      This is not a cold start. I had been working on this for weeks and had most of
+      a draft, built with Gemini. Going in, I knew the mathematics and the general
+      shape of the results I was after — but not the precise form the arguments would
+      take, and none of the details. By this point I had already distilled long, tedious
+      sketches down to <strong>one result</strong>.
     </p>
-    <div class="grid g3">
+    <p class="lede" style="margin-top:.8em">
+      That single claim — that two maps agree up to a sign — is where the case study
+      picks up. Both models kept telling me it was true. Neither would tell me <em>why</em>.
+    </p>
+    <div class="grid g2">
       <div class="card">
-        <div class="n">The black box</div>
-        <p>A claim of the form <em>"these two constructions give the same answer."</em> Standard-looking. Textbook-adjacent. That's exactly what makes it dangerous.</p>
+        <div class="n">What I brought</div>
+        <p>The mathematics, and the general flavour of the results I was looking for. Several weeks of work, and a draft already in hand.</p>
       </div>
       <div class="card">
-        <div class="n">My role</div>
+        <div class="n">What I did not have</div>
+        <p>The precise form the arguments would take, or any of the details of the proof. That is genuinely what I was there to find.</p>
+      </div>
+      <div class="card">
+        <div class="n">The constraint</div>
         <p>I am a mathematician. I cannot use a step I can't verify. I told both models this explicitly, more than once.</p>
       </div>
       <div class="card">
         <div class="n">The failure mode</div>
-        <p>Not hallucinated nonsense. <strong>Fluent, confident, correctly-formatted proofs with one load-bearing sentence that was never justified.</strong></p>
+        <p>Not hallucinated nonsense. <strong>Fluent, confident proofs with one step I did not yet understand.</strong></p>
       </div>
     </div>
   </div>
@@ -232,7 +255,7 @@ hr.sep{border:0; border-top:1px solid var(--rule); margin:2.4em 0}
 <section class="slide auto">
   <div class="wrap">
     <div class="kicker">Step 1</div>
-    <h2>The timeline.</h2>
+    <h2>Timeline</h2>
     <p class="lede">I was moving back and forth between the two windows, carrying documents and objections with me.</p>
 
     <div class="tl">
@@ -315,24 +338,50 @@ hr.sep{border:0; border-top:1px solid var(--rule); margin:2.4em 0}
 <section class="slide auto">
   <div class="wrap">
     <div class="kicker">Step 2</div>
-    <h2>Going in circles.</h2>
+    <h2>Examples of pitfalls</h2>
     <p class="lede">
-      The same gap, patched five times with five different authorities. Watch the pattern:
-      every time I close one escape route, a new one opens — never a computation.
+      I started pressing it on that step. Five times it came back with a different
+      justification. These are examples. Every time I closed one route, a new one opened.
     </p>
 
-    <div class="loop">
-      <h3>The carousel of citations</h3>
-      <ol>
-        <li><strong>"Balancing Tor."</strong> The two maps agree because a standard theorem says so.</li>
-        <li><strong>"The Comparison Theorem."</strong> With a precise Weibel citation — for a hypothesis my setting doesn't satisfy.</li>
-        <li><strong>"Ring multiplication."</strong> An argument built on a product that <em>does not exist</em> on the object in question.</li>
-        <li><strong>"Symmetry of Tor."</strong> Cite Mac Lane, assert a sign.</li>
-        <li><strong>"The 3×3 slice lemma."</strong> Invoked, not applied.</li>
-      </ol>
+    <h3>Examples of what came back</h3>
+
+    <div class="ex">
+      <span class="extag">Appeal to a named theorem</span>
+      <pre>Both compositions compute the evaluation of the derived tensor
+product in top degree. … By the standard theorem on balancing Tor
+(i.e., the independence of the derived tensor product on the choice
+of which variable is resolved), these two canonical spectral
+sequence evaluations <b>strictly coincide.</b></pre>
+      <p class="why"><b>There is such a theorem.</b> Its application here was vague and undeveloped. A correct citation is not an argument until its hypotheses are matched against the objects at hand. My reply: <em>"is too vague for my taste. I want us to open this up and prove it step by step."</em></p>
     </div>
 
-    <h3 style="margin-top:2em">What I actually said, and what came back</h3>
+    <div class="ex">
+      <span class="extag">Right citation, wrong hypothesis</span>
+      <pre>Weibel, Thm 2.2.6 · Cartan–Eilenberg
+    — the Comparison Theorem (Fundamental Lemma of
+      Homological Algebra)</pre>
+      <p class="why"><b>I asked for an exact reference and got a good one.</b> But the Comparison Theorem requires a <b>projective</b> resolution, and mine is only flat. This is the most instructive of the five: the citation is real, precisely numbered, and still does not apply. In the other window, ChatGPT put the distinction plainly — <em>"Flat resolutions compute tensors, but projective resolutions control maps out."</em></p>
+    </div>
+
+    <div class="ex">
+      <span class="extag">An object that does not exist</span>
+      <pre>You are completely right, and I appreciate your scrutiny. That was
+a serious algebraic oversight on my part. R∨ is indeed an R-module,
+but it is <b>not an R-algebra</b>...</pre>
+      <p class="why"><b>The proof it had just given used a ring multiplication that R<sup>∨</sup> does not carry.</b> Not a subtle gap — a non-existent operation. It surfaced only because I named it, and the replacement argument arrived just as confidently.</p>
+    </div>
+
+    <div class="ex">
+      <span class="extag">Assertion dressed as inference</span>
+      <pre><b>This guarantees</b> that the canonical diagram strictly commutes.</pre>
+      <p class="why"><b>The verb is carrying the proof.</b> "Guarantees", "ensures", "forces" — each names a consequence without supplying one. This phrasing kept returning across several attempts, until: <em>"You keep coming back to this … Prove to me that 'this guarantees the diagram strictly commutes'. This is the CRUX!!!!"</em></p>
+    </div>
+
+    <p class="note">Quoted text above is verbatim. The Comparison Theorem row survives only as summary in the AI Studio export, so that snippet reconstructs what was cited rather than quoting it.</p>
+
+    <h3 style="margin-top:2em">Escalating the demand for rigor — and the frustration</h3>
+    <p class="note" style="margin-bottom:1em">These run over several hours. The tone is not incidental: it is the record of a mathematician being told, repeatedly and pleasantly, that a thing was true.</p>
 
     <div class="q me"><span class="who">me → Gemini</span>
       <p class="said">"Why will neither you nor chat gpt give me the details of the fact that these edge homomorphism give equal maps on tor. I'm suspecting there is a gap there?"</p>
@@ -377,7 +426,7 @@ cellular structure), the map u — which represents this canonical
 product — satisfies u ∘ σ ≃ u in the derived category.
 Consequently, v ≃ (−1)^d u.</pre>
         <p>Every symbol before that paragraph was checkable. That paragraph is the entire theorem, stated as a parenthetical. The rhetorical move is <em>"Since [thing I have not proved], [conclusion]."</em></p>
-        <p><strong>Teaching point:</strong> the giveaway isn't wrongness, it's <em>asymmetry of effort</em>. Twenty lines of arithmetic, one sentence of hand-wave — and the sentence is the hard part. Always ask: <em>which line is doing the work?</em></p>
+        <p><strong>Teaching point:</strong> the giveaway isn't wrongness. It is a lot of easy-to-check detail leading up to that last sentence, and then a switch to a vague statement I was not sure how to justify. Always ask: <em>which line is doing the work?</em></p>
       </div>
     </details>
 
@@ -408,10 +457,10 @@ Consequently, v ≃ (−1)^d u.</pre>
 <!-- ============ 4. THE HINGE ============ -->
 <section class="slide">
   <div class="wrap">
-    <div class="kicker">Step 3 · The turn</div>
-    <h2>What broke the loop.</h2>
+    <div class="kicker">Step 3 · Change of approach</div>
+    <h2>What changed the outcome</h2>
     <p class="big" style="margin:.6em 0 0">
-      I stopped asking for <em>a proof</em><br>and started asking for <em>an example</em>.
+      Asking for an example<br>instead of a proof.
     </p>
   </div>
 </section>
@@ -419,7 +468,7 @@ Consequently, v ≃ (−1)^d u.</pre>
 <section class="slide auto">
   <div class="wrap">
     <div class="kicker">Step 3 · continued</div>
-    <h2>Three moves, in order.</h2>
+    <h2>Three steps, in order</h2>
 
     <div class="grid g3">
       <div class="card">
@@ -494,8 +543,8 @@ Consequently, v ≃ (−1)^d u.</pre>
 <!-- ============ 5. BACK TO GEMINI ============ -->
 <section class="slide auto">
   <div class="wrap">
-    <div class="kicker">Step 4 · The return</div>
-    <h2>And then I showed it to Gemini.</h2>
+    <div class="kicker">Step 4 · Return to Gemini</div>
+    <h2>The finished proof, returned to Gemini</h2>
 
     <div class="q me"><span class="who">me → Gemini</span>
       <p class="said">"Can you turn this junk into a .tex file that actually compiles. <strong>Strict rule: do not change any of the math, just resolve the compiling issues.</strong>"</p>
@@ -515,7 +564,7 @@ Consequently, v ≃ (−1)^d u.</pre>
       A model that could not produce the proof had no trouble certifying it.
     </p>
     <p class="lede" style="margin-top:1em">
-      Praise is not evaluation. "Bulletproof" from a model that called four broken arguments bulletproof
+      Approval is not verification. "Bulletproof", from a model that called four broken arguments bulletproof
       earlier the same afternoon carries exactly zero information.
       The word only meant something when <em>I</em> could check every line.
     </p>
@@ -536,8 +585,8 @@ Consequently, v ≃ (−1)^d u.</pre>
 <!-- ============ 6. TAKEAWAYS ============ -->
 <section class="slide auto">
   <div class="wrap">
-    <div class="kicker">What to take away</div>
-    <h2>The moves that worked.</h2>
+    <div class="kicker">Summary</div>
+    <h2>Prompting moves that changed the outcome</h2>
 
     <div class="grid g2">
       <div class="card">
@@ -546,7 +595,7 @@ Consequently, v ≃ (−1)^d u.</pre>
       </div>
       <div class="card">
         <div class="n">02 — Watch for asymmetry of effort</div>
-        <p>Pages of computation around a one-line assertion is a smell. The model spends effort where it's easy, not where it's hard.</p>
+        <p>Pages of easy-to-check detail around a one-line assertion is the pattern to watch for — especially when the assertion is the part you cannot yet justify.</p>
       </div>
       <div class="card">
         <div class="n">03 — Ask for an example, not a proof</div>
@@ -584,7 +633,7 @@ Consequently, v ≃ (−1)^d u.</pre>
 
     <hr class="sep">
 
-    <h2 style="margin-top:.4em">And the uncomfortable part.</h2>
+    <h2 style="margin-top:.4em">Two findings</h2>
     <ul class="arrowlist">
       <li>Both models produced <strong>false proofs that look exactly like true ones</strong>. Formatting, citations, confidence — all identical.</li>
       <li>Every correction I extracted was correct <em>and</em> was immediately followed by a new error of the same kind. Being right about the objection did not fix the process.</li>
