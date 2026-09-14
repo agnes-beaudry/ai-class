@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe Proofing — Case Study</title>
+<style>
+:root{
+  --bg:#fbfaf7;
+  --ink:#1a1a1a;
+  --muted:#6b6560;
+  --rule:#e3ded6;
+  --card:#ffffff;
+  --gpt:#0f7a5a;      /* ChatGPT lane */
+  --gpt-soft:#e7f4ef;
+  --gem:#3b5bd6;      /* Gemini lane */
+  --gem-soft:#e9edfb;
+  --me:#a8360a;       /* my prompts */
+  --me-soft:#fdeee6;
+  --warn:#8a6d00;
+  --warn-soft:#fbf3d6;
+  --maxw:1000px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14140f; --ink:#f2efe9; --muted:#a7a096; --rule:#332f28; --card:#1d1c17;
+    --gpt:#4cc79c; --gpt-soft:#14302a; --gem:#8ba2f5; --gem-soft:#191f3a;
+    --me:#ff9a6a; --me-soft:#331a10; --warn:#e3c65c; --warn-soft:#2e2814;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:17px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+
+/* ---- slides ---- */
+section.slide{
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+  padding-block:72px; border-bottom:1px solid var(--rule);
+  scroll-margin-top:0;
+}
+section.slide.auto{min-height:0}
+h1{font-size:clamp(2.4rem,6vw,4.2rem); line-height:1.02; margin:0 0 .3em; letter-spacing:-.03em; font-weight:800}
+h2{font-size:clamp(1.7rem,3.6vw,2.6rem); line-height:1.1; margin:0 0 .5em; letter-spacing:-.02em; font-weight:750}
+h3{font-size:1.15rem; margin:0 0 .4em; letter-spacing:-.01em}
+.kicker{
+  font-size:.78rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); font-weight:700; margin-bottom:1.1em;
+}
+.lede{font-size:clamp(1.05rem,2vw,1.35rem); color:var(--muted); max-width:62ch}
+.big{font-size:clamp(1.3rem,2.6vw,1.9rem); line-height:1.35; font-weight:600; max-width:24ch}
+
+/* ---- quote blocks ---- */
+.q{
+  border-left:4px solid var(--rule); padding:.7em 0 .7em 1.1em; margin:1.1em 0;
+  font-size:1.02rem;
+}
+.q .who{
+  display:inline-block; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  font-weight:800; margin-bottom:.45em; padding:.18em .5em; border-radius:4px;
+}
+.q.me{border-color:var(--me); background:var(--me-soft)}
+.q.me .who{color:var(--me)}
+.q.gpt{border-color:var(--gpt); background:var(--gpt-soft)}
+.q.gpt .who{color:var(--gpt)}
+.q.gem{border-color:var(--gem); background:var(--gem-soft)}
+.q.gem .who{color:var(--gem)}
+.q p{margin:.3em 0}
+.q .said{font-style:italic}
+.note{font-size:.9rem; color:var(--muted); margin-top:.5em; font-style:normal}
+
+/* ---- timeline ---- */
+.tl{position:relative; margin:2.5em 0 1em; padding-left:0}
+.tl::before{
+  content:""; position:absolute; left:50%; top:0; bottom:0; width:2px;
+  background:var(--rule); transform:translateX(-50%);
+}
+.ev{position:relative; width:50%; padding:0 28px 30px 0; }
+.ev.right{margin-left:50%; padding:0 0 30px 28px}
+.ev .dot{
+  position:absolute; top:.45em; width:13px; height:13px; border-radius:50%;
+  background:var(--bg); border:3px solid var(--rule);
+}
+.ev .dot{right:-7px}
+.ev.right .dot{left:-7px; right:auto}
+.ev.g .dot{border-color:var(--gem)}
+.ev.c .dot{border-color:var(--gpt)}
+.ev .lane{font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; margin-bottom:.25em}
+.ev.g .lane{color:var(--gem)}
+.ev.c .lane{color:var(--gpt)}
+.ev .what{font-size:.98rem}
+.ev .what strong{font-weight:700}
+.ev.left{text-align:right}
+@media (max-width:760px){
+  .tl::before{left:7px}
+  .ev, .ev.right{width:100%; margin-left:0; padding:0 0 26px 28px; text-align:left}
+  .ev .dot,.ev.right .dot{left:0; right:auto}
+}
+
+/* ---- cards ---- */
+.grid{display:grid; gap:18px; margin-top:1.6em}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+.card{
+  background:var(--card); border:1px solid var(--rule); border-radius:12px;
+  padding:20px 22px;
+}
+.card .n{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:800}
+.card p{margin:.45em 0 0; font-size:.97rem}
+
+/* ---- details ---- */
+details{
+  margin:1.1em 0; border:1px solid var(--rule); border-radius:10px;
+  background:var(--card); overflow:hidden;
+}
+details>summary{
+  cursor:pointer; padding:.7em 1em; font-size:.88rem; font-weight:650;
+  color:var(--muted); list-style:none; user-select:none;
+}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸ "; color:var(--muted)}
+details[open]>summary::before{content:"▾ "}
+details>summary:hover{color:var(--ink)}
+.dbody{padding:0 1.2em 1.1em; font-size:.93rem; border-top:1px solid var(--rule); padding-top:1em}
+.dbody code, code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.88em;
+  background:var(--bg); border:1px solid var(--rule); border-radius:4px; padding:.05em .35em;
+}
+.dbody pre{
+  background:var(--bg); border:1px solid var(--rule); border-radius:8px;
+  padding:.8em 1em; overflow-x:auto; font-size:.85rem; line-height:1.5;
+}
+
+/* ---- misc ---- */
+.tag{
+  display:inline-block; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+  font-weight:800; padding:.25em .6em; border-radius:99px; margin-right:.4em;
+}
+.tag.gpt{background:var(--gpt-soft); color:var(--gpt)}
+.tag.gem{background:var(--gem-soft); color:var(--gem)}
+.tag.warnt{background:var(--warn-soft); color:var(--warn)}
+.loop{
+  border:1px dashed var(--warn); background:var(--warn-soft); border-radius:12px;
+  padding:18px 22px; margin:1.4em 0;
+}
+.loop h3{color:var(--warn); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.6em}
+.loop ol{margin:0; padding-left:1.2em}
+.loop li{margin:.35em 0; font-size:.97rem}
+hr.sep{border:0; border-top:1px solid var(--rule); margin:2.4em 0}
+.footer{padding:60px 0 80px; color:var(--muted); font-size:.9rem}
+.footer a{color:inherit}
+.nav{
+  position:fixed; top:0; left:0; right:0; height:3px; background:transparent; z-index:50;
+}
+.nav .bar{height:100%; background:var(--me); width:0%}
+.legend{display:flex; gap:18px; flex-wrap:wrap; margin-top:1.6em; font-size:.85rem; color:var(--muted)}
+.legend span{display:flex; align-items:center; gap:.45em}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.arrowlist{list-style:none; padding:0; margin:1.2em 0}
+.arrowlist li{padding-left:1.6em; position:relative; margin:.6em 0; font-size:1.02rem}
+.arrowlist li::before{content:"→"; position:absolute; left:0; color:var(--me); font-weight:700}
+.decklink{
+  display:inline-flex; align-items:center; gap:.55em; margin-top:2.4em;
+  font-size:.92rem; font-weight:650; text-decoration:none;
+  color:var(--ink); background:var(--card); border:1px solid var(--rule);
+  border-radius:99px; padding:.65em 1.2em;
+}
+.decklink:hover{border-color:var(--me); color:var(--me)}
+.decklink .dot2{width:8px;height:8px;border-radius:50%;background:var(--me)}
+.decklink .sm{color:var(--muted); font-weight:500}
+.decklink:hover .sm{color:inherit}
+</style>
+</head>
+<body>
+<div class="nav"><div class="bar" id="bar"></div></div>
+
+<!-- ============ 0. TITLE ============ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Vibe Proofing · Case Study</div>
+    <h1>Two chat windows,<br>one real proof.</h1>
+    <p class="lede">
+      A record of how one proposition in a research paper actually got proved —
+      bouncing between ChatGPT and Gemini over one working session.
+    </p>
+    <div class="legend">
+      <span><i style="background:var(--me)"></i> my prompts</span>
+      <span><i style="background:var(--gpt)"></i> ChatGPT window</span>
+      <span><i style="background:var(--gem)"></i> Gemini window (AI Studio)</span>
+    </div>
+    <p class="note" style="margin-top:2.2em">
+      You do not need to know any of the mathematics to follow this. The math is a black box.
+      Watch the <strong>shape of the exchange</strong>.
+    </p>
+    <a class="decklink" href="slides.html"><span class="dot2"></span>Presenting this? <span class="sm">Open the 10-minute slide deck →</span></a>
+  </div>
+</section>
+
+<!-- ============ 1. THE SETUP ============ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Setup</div>
+    <h2>One statement I could not prove.</h2>
+    <p class="lede">
+      Everything in the paper reduced to a single claim: that two maps
+      (the "edge maps") agree up to a sign. Both models kept telling me it was true.
+      Neither would tell me <em>why</em>.
+    </p>
+    <div class="grid g3">
+      <div class="card">
+        <div class="n">The black box</div>
+        <p>A claim of the form <em>"these two constructions give the same answer."</em> Standard-looking. Textbook-adjacent. That's exactly what makes it dangerous.</p>
+      </div>
+      <div class="card">
+        <div class="n">My role</div>
+        <p>I am a mathematician. I cannot use a step I can't verify. I told both models this explicitly, more than once.</p>
+      </div>
+      <div class="card">
+        <div class="n">The failure mode</div>
+        <p>Not hallucinated nonsense. <strong>Fluent, confident, correctly-formatted proofs with one load-bearing sentence that was never justified.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. TIMELINE ============ -->
+<section class="slide auto">
+  <div class="wrap">
+    <div class="kicker">Step 1</div>
+    <h2>The timeline.</h2>
+    <p class="lede">I was moving back and forth between the two windows, carrying documents and objections with me.</p>
+
+    <div class="tl">
+
+      <div class="ev left g"><div class="dot"></div>
+        <div class="lane">Gemini</div>
+        <div class="what"><strong>Opening move.</strong> I upload the paper: <em>"Can you prove Conjecture 2.8?"</em> Gemini returns a complete, confident proof.</div>
+      </div>
+
+      <div class="ev right g"><div class="dot"></div>
+        <div class="lane">Gemini</div>
+        <div class="what"><strong>The tell.</strong> The proof's last step is one sentence: <em>"Since C• possesses a homotopy commutative product … u ∘ σ ≃ u."</em> That sentence carries the whole argument. Nothing supports it.</div>
+      </div>
+
+      <div class="ev left c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what"><strong>I open a second window</strong> and start a sign audit: <em>"Compare Conjecture 3.9 and Proposition 2.8 and help me sort out the correct signs."</em></div>
+      </div>
+
+      <div class="ev right c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what">Several rounds of sign bookkeeping. Each round I upload a revised <code>.tex</code>; each round something else is off. Useful, but still orbiting the same unproved core.</div>
+      </div>
+
+      <div class="ev left g"><div class="dot"></div>
+        <div class="lane">Gemini</div>
+        <div class="what"><strong>I name the problem out loud</strong> — and name the other window: <em>"Why will neither you nor chat gpt give me the details…? I'm suspecting there is a gap there?"</em></div>
+      </div>
+
+      <div class="ev right g"><div class="dot"></div>
+        <div class="lane">Gemini</div>
+        <div class="what"><strong>The loop begins.</strong> Five different "bulletproof" arguments in a row. Each one collapses when I push on it. Details below.</div>
+      </div>
+
+      <div class="ev left c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what"><strong>I stop asking for proofs and start reducing.</strong> I rewrite the conjecture myself into the smallest statement that would still do the job, and ask GPT to check the reduction.</div>
+      </div>
+
+      <div class="ev right c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what"><strong>Ultimatum.</strong> <em>"Either give me a complete, rigorous, well referenced proof … or completely BREAK IT."</em> GPT breaks the strong version with a counterexample — and admits it cannot prove the weak one.</div>
+      </div>
+
+      <div class="ev left c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what"><strong>The hinge.</strong> Buried in that answer is a fully worked <em>d = 1</em> example, with an explicit formula. It's the only concrete thing either model has produced all day.</div>
+      </div>
+
+      <div class="ev right c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what"><strong>I point at it.</strong> <em>"You did such a good job with the d=1 case, I want an explicit proof like that… if you want to start by proving it for d=2 and d=3 first, we can look at those arguments together."</em></div>
+      </div>
+
+      <div class="ev left c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what">GPT does <em>d = 2</em> by hand. In the process it <strong>finds its own earlier formula was wrong</strong>, fixes it, sees the pattern, and — asked to push — writes the general proof. It also drops the sign everyone had assumed.</div>
+      </div>
+
+      <div class="ev right c"><div class="dot"></div>
+        <div class="lane">ChatGPT</div>
+        <div class="what">I make it explain one indexing step I didn't follow. It does, cleanly, and flags its own notation as dangerous. <em>"Ok. Your proof is amazing. I knew you could do it!"</em></div>
+      </div>
+
+      <div class="ev left g"><div class="dot"></div>
+        <div class="lane">Gemini</div>
+        <div class="what"><strong>Back to the first window</strong> with the finished proof: <em>"Can you turn this junk into a .tex file that actually compiles. Strict rule: do not change any of the math."</em></div>
+      </div>
+
+      <div class="ev right g"><div class="dot"></div>
+        <div class="lane">Gemini</div>
+        <div class="what"><em>"Thanks! What do you think of this proof?"</em> → <strong>"I think this proof is absolutely fantastic. It is a genuine tour de force…"</strong> The same model that spent the afternoon failing to produce it now grades it.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. THE LOOP ============ -->
+<section class="slide auto">
+  <div class="wrap">
+    <div class="kicker">Step 2</div>
+    <h2>Going in circles.</h2>
+    <p class="lede">
+      The same gap, patched five times with five different authorities. Watch the pattern:
+      every time I close one escape route, a new one opens — never a computation.
+    </p>
+
+    <div class="loop">
+      <h3>The carousel of citations</h3>
+      <ol>
+        <li><strong>"Balancing Tor."</strong> The two maps agree because a standard theorem says so.</li>
+        <li><strong>"The Comparison Theorem."</strong> With a precise Weibel citation — for a hypothesis my setting doesn't satisfy.</li>
+        <li><strong>"Ring multiplication."</strong> An argument built on a product that <em>does not exist</em> on the object in question.</li>
+        <li><strong>"Symmetry of Tor."</strong> Cite Mac Lane, assert a sign.</li>
+        <li><strong>"The 3×3 slice lemma."</strong> Invoked, not applied.</li>
+      </ol>
+    </div>
+
+    <h3 style="margin-top:2em">What I actually said, and what came back</h3>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"Why will neither you nor chat gpt give me the details of the fact that these edge homomorphism give equal maps on tor. I'm suspecting there is a gap there?"</p>
+    </div>
+    <div class="q gem"><span class="who">Gemini</span>
+      <p class="said">"You have hit the nail exactly on the head. Your intuition is absolutely correct…"</p>
+      <p class="note">Agreement without repair. It concedes the gap, explains that experts "bypass the combinatorial nightmare," and then bypasses it too.</p>
+    </div>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"I'm happy with an abstract argument as long as it is bullet proof and not vague but I am not yet satisfied with your treatment of this. … You can use the lifting property, etc., but it needs to convince me a 100%. I'm a mathematician so I will be able to scrutinize the argument very carefully, so try really hard to be bullet proof."</p>
+      <p class="note">Explicitly licensing abstraction, explicitly demanding rigor, explicitly declaring I will check. The next answer was still vague.</p>
+    </div>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"This part … is too vague for my taste. I want us to open this up and prove it step by step. Can we do that?"</p>
+    </div>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"There is no ring multiplication on R<sup>∨</sup>"</p>
+    </div>
+    <div class="q gem"><span class="who">Gemini</span>
+      <p class="said">"You are completely right, and I appreciate your scrutiny. That was a serious algebraic oversight on my part."</p>
+      <p class="note">…followed immediately by a new proof, equally confident, with the same structural flaw in a new costume.</p>
+    </div>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"You keep coming back to this <em>'This guarantees that the canonical diagram strictly commutes'</em>. Prove to me that 'this guarantees the diagram strictly commutes'. This is the CRUX!!!!"</p>
+    </div>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"You application of the 3x3 slice lemma is dubious at best."</p>
+    </div>
+
+    <details>
+      <summary>The anatomy of the load-bearing sentence — Gemini's original "proof"</summary>
+      <div class="dbody">
+        <p>Gemini's very first answer was four screens of correct-looking, carefully typeset computation. It ends like this:</p>
+        <pre>Since C• possesses a homotopy commutative product resolving the
+multiplication on R∨ (arising from the cup product of the spherical
+cellular structure), the map u — which represents this canonical
+product — satisfies u ∘ σ ≃ u in the derived category.
+Consequently, v ≃ (−1)^d u.</pre>
+        <p>Every symbol before that paragraph was checkable. That paragraph is the entire theorem, stated as a parenthetical. The rhetorical move is <em>"Since [thing I have not proved], [conclusion]."</em></p>
+        <p><strong>Teaching point:</strong> the giveaway isn't wrongness, it's <em>asymmetry of effort</em>. Twenty lines of arithmetic, one sentence of hand-wave — and the sentence is the hard part. Always ask: <em>which line is doing the work?</em></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The same loop in the ChatGPT window — a different flavor</summary>
+      <div class="dbody">
+        <p>GPT circled too, but around <em>signs</em> rather than authorities. Roughly eight exchanges of "is the sign (−1)<sup>d</sup> or not," each triggered by me re-uploading a corrected document:</p>
+        <div class="q me"><span class="who">me</span><p class="said">"Unfortunately, putting |f| in the global sign does not actually make sense. What should we do about that?"</p></div>
+        <div class="q me"><span class="who">me</span><p class="said">"Ok, so you are telling me to change the definition of the duality map? Because σ<sub>F#</sub>[−d] appears there for a reason, I can't just change it in the proof."</p></div>
+        <div class="q me"><span class="who">me</span><p class="said">"I did what you said but am still running into sign issues…. Please review this document carefully and try to help me identify the problem."</p></div>
+        <div class="q me"><span class="who">me</span><p class="said">"I don't get the formula δ<sub>F,d</sub>(η) = (−1)<sup>d|η|</sup>η … can you be more precise?"</p></div>
+        <p>This loop was not wasted — it produced real fixes. But it was fixing the <em>surface</em> of a proof whose <em>core</em> was still unproved. Local correctness can absorb an unlimited amount of attention.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Context rot: when the model won't let go of a dead idea</summary>
+      <div class="dbody">
+        <p>Late in the session I had already discarded a hypothesis. GPT kept reviewing the discarded version instead of the document I'd just uploaded:</p>
+        <div class="q me"><span class="who">me</span><p class="said">"You are not reviewing the new document I am providing. There is no longer any claim about the strong conjecture, that's old and thrown out already so you need to let that go. I'm asking you about the edge map conjecture. Should I start a new chat to get the old thoughts out of the way?"</p></div>
+        <div class="q gpt"><span class="who">ChatGPT</span><p class="said">"You do not need to start a new chat. You're right: I drifted back to an obsolete formulation. I'll ignore the old strong swap conjecture and review only the current edge-map conjecture in the latest upload."</p></div>
+        <p><strong>Teaching point:</strong> long threads accumulate abandoned ideas, and models re-litigate them. Naming the dead idea explicitly — <em>"that's thrown out, let it go"</em> — worked here. Sometimes starting a fresh window is cheaper.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 4. THE HINGE ============ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Step 3 · The turn</div>
+    <h2>What broke the loop.</h2>
+    <p class="big" style="margin:.6em 0 0">
+      I stopped asking for <em>a proof</em><br>and started asking for <em>an example</em>.
+    </p>
+  </div>
+</section>
+
+<section class="slide auto">
+  <div class="wrap">
+    <div class="kicker">Step 3 · continued</div>
+    <h2>Three moves, in order.</h2>
+
+    <div class="grid g3">
+      <div class="card">
+        <div class="n">Move 1 — Reduce it myself</div>
+        <p>I rewrote the conjecture down to the smallest statement that would still finish the paper, and asked GPT only to <em>check the reduction</em>. Not to prove anything.</p>
+      </div>
+      <div class="card">
+        <div class="n">Move 2 — Demand a verdict, not a proof</div>
+        <p>"Prove it <em>or break it</em>." Giving the model permission to say <em>false</em> is what made its answer informative.</p>
+      </div>
+      <div class="card">
+        <div class="n">Move 3 — Promote the example</div>
+        <p>It answered with a worked case. I ignored the prose and pointed at the computation: <em>do that again, twice.</em></p>
+      </div>
+    </div>
+
+    <hr class="sep">
+
+    <div class="q me"><span class="who">me → ChatGPT</span>
+      <p class="said">"Please either give me a complete, rigorous, well referenced proof of Conjecture 2.7 (you can change the sign if required to make the statement true) or completely BREAK IT. If you refer to any results in homological algebra, I want a precise reference that exactly applies the result (no hand-waving using similarities between arguments, only bulletproof references)."</p>
+      <p class="note">Three things at once: an either/or, permission to modify the statement, and a ban on argument-by-analogy.</p>
+    </div>
+
+    <div class="q gpt"><span class="who">ChatGPT</span>
+      <p class="said">"I need to separate two statements, because one I can <strong>completely break</strong>, and the other I cannot honestly claim to have proved."</p>
+      <p class="said">"I do not yet have a bulletproof proof or counterexample for that reduced statement in all dimensions. I would not present the current argument as a proof; I would present it as a clean reduction."</p>
+      <p class="note">This is the first honest "I don't know" in the whole session — and it arrives only once "break it" is on the menu. It also killed a hypothesis I'd been carrying for hours, with an actual counterexample.</p>
+    </div>
+
+    <p class="lede" style="margin-top:1.4em">
+      Buried at the bottom of that same answer, unprompted, was a section headed
+      <strong>"A useful sanity check: d = 1 supports the sign."</strong> Four lines of explicit formula.
+      That was the only concrete object either model had produced all day.
+    </p>
+
+    <div class="q me"><span class="who">me → ChatGPT</span>
+      <p class="said">"Yes. That is what I'm asking you to attack, I realize it's a reduction (I wrote it) and I want you to complete the proof. <strong>You did such a good job with the d=1 case, I want an explicit proof like that which I can verify without doubt.</strong> If you don't see the general argument and you want to start by proving it for d=2 and d=3 first, we can look at those arguments together and see how they may generalize?"</p>
+      <p class="note">Four things in one prompt: <em>I</em> own the reduction · name what worked · state the acceptance criterion (<strong>"which I can verify without doubt"</strong>) · offer a smaller ladder and make it collaborative.</p>
+    </div>
+
+    <div class="q gpt"><span class="who">ChatGPT</span>
+      <p class="said">"I do <strong>not</strong> yet see a clean all-d proof that I would call bulletproof. But I do see something important … Even more importantly, the d=1 homotopy I previously sketched used products like ā₊b₊. That is <strong>not</strong> a legitimate formula in general, because it may require infinite coefficient sums."</p>
+      <p class="note">Forced back into arithmetic, it caught its own bug — one that no amount of "are you sure?" had surfaced. The corrected formula pairs things in a way that actually converges, and that constraint is what makes the whole proof work.</p>
+    </div>
+
+    <p class="lede" style="margin-top:1.4em">
+      It then did <em>d = 2</em> by hand, watched the unwanted terms cancel, and wrote:
+      <em>"The pattern is now clear."</em> I said: <strong>"Go ahead and try to turn your idea for the next formula into a proof (dropping the sign if that is what the math says!)"</strong> — and it wrote the general argument.
+    </p>
+
+    <details>
+      <summary>Bonus: the example overturned the conjecture's sign</summary>
+      <div class="dbody">
+        <p>Everyone — me, Gemini, GPT — had been assuming the answer carried a factor of (−1)<sup>d</sup>. The whole first half of the session was spent chasing that sign through the paper. The explicit computation said otherwise:</p>
+        <div class="q gpt"><span class="who">ChatGPT</span><p class="said">"So the conjectural sign (−1)<sup>d</sup> is at least suspicious. The explicit homotopy points to the corrected statement μ<sub>L</sub> ≃ μ<sub>R</sub>. … I would <strong>change Conjecture 2.7</strong> to remove the (−1)<sup>d</sup>."</p></div>
+        <p><strong>Teaching point:</strong> the abstract arguments were flexible enough to "prove" the statement <em>with</em> the wrong sign. A concrete computation isn't. Examples are not a weaker form of proof — they're the part that can contradict you.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The last check: making it explain the step I didn't follow</summary>
+      <div class="dbody">
+        <p>I did not accept the finished proof on the strength of the model's confidence. I found the one line whose indexing I couldn't match to my own definitions and quoted it back verbatim:</p>
+        <div class="q me"><span class="who">me</span><p class="said">"Can you help me understand this part '…the component of ∂φ on a signed cell α supported on I<sub>k</sub> is …' compared to my formula for the boundary which was '…'"</p></div>
+        <div class="q gpt"><span class="who">ChatGPT</span><p class="said">"Yes — this is just your boundary formula rewritten with different indexing. I should have avoided using k both as the 'cut index' and as the position index… That notation is dangerous, so I should make it explicit."</p></div>
+        <p>It then worked a small numerical instance (d = 5, k = 3) to show the two conventions agree, and recommended a notation change. <em>This</em> is what verification looks like: quote the exact sentence, put your own definition beside it, ask for the translation.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 5. BACK TO GEMINI ============ -->
+<section class="slide auto">
+  <div class="wrap">
+    <div class="kicker">Step 4 · The return</div>
+    <h2>And then I showed it to Gemini.</h2>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"Can you turn this junk into a .tex file that actually compiles. <strong>Strict rule: do not change any of the math, just resolve the compiling issues.</strong>"</p>
+      <p class="note">Note the role I assign: typesetter, not mathematician. And the guardrail, stated before it can improvise.</p>
+    </div>
+
+    <div class="q me"><span class="who">me → Gemini</span>
+      <p class="said">"Thanks! What do you think of this proof?"</p>
+    </div>
+
+    <div class="q gem"><span class="who">Gemini</span>
+      <p class="said">"I think this proof is <strong>absolutely fantastic</strong>. It is a genuine <em>tour de force</em> of explicit chain-level algebra…"</p>
+      <p class="note">It goes on to praise the proof for being "undeniably bulletproof," for "elegantly leveraging the specific geometry," and for "brilliantly resolving the analytic convergence issue" — the exact issue it had spent the afternoon not noticing.</p>
+    </div>
+
+    <p class="big" style="margin-top:1.5em">
+      A model that could not produce the proof had no trouble certifying it.
+    </p>
+    <p class="lede" style="margin-top:1em">
+      Praise is not evaluation. "Bulletproof" from a model that called four broken arguments bulletproof
+      earlier the same afternoon carries exactly zero information.
+      The word only meant something when <em>I</em> could check every line.
+    </p>
+
+    <details>
+      <summary>Was the session over? No — the audit continued</summary>
+      <div class="dbody">
+        <p>With the core proved, I went back to GPT and kept auditing my own document, including prompts designed <em>not</em> to lead the witness:</p>
+        <div class="q me"><span class="who">me</span><p class="said">"I want to know if my signs are now all correct. In particular, I am suspicious that there may be a sign mistake… <strong>It's possible it is correct, so don't force a mistake, just look, redo all my steps in deciding the sign, and tell me what you think.</strong>"</p></div>
+        <p>"Don't force a mistake" is doing real work: these models are strongly biased toward finding something wrong when you signal that you expect it. And later:</p>
+        <div class="q me"><span class="who">me</span><p class="said">"Hmm, I wonder if my sign is manufactured by my mis-identifying the adjoint? Thoughts on what the cleanest statement/convention would be?"</p></div>
+        <p>That one led to changing a definition in the paper so the awkward sign disappeared — a genuinely good suggestion, from the same model that had been wrong all morning. Both things are true at once.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 6. TAKEAWAYS ============ -->
+<section class="slide auto">
+  <div class="wrap">
+    <div class="kicker">What to take away</div>
+    <h2>The moves that worked.</h2>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="n">01 — Find the load-bearing sentence</div>
+        <p>Don't read a proof front to back. Ask: <em>which single sentence, if removed, collapses this?</em> Then read only that one. It is usually short, confident, and unsupported.</p>
+      </div>
+      <div class="card">
+        <div class="n">02 — Watch for asymmetry of effort</div>
+        <p>Pages of computation around a one-line assertion is a smell. The model spends effort where it's easy, not where it's hard.</p>
+      </div>
+      <div class="card">
+        <div class="n">03 — Ask for an example, not a proof</div>
+        <p>"Do the smallest case explicitly" is the single highest-yield prompt in this transcript. Examples can contradict you. Abstractions can't.</p>
+      </div>
+      <div class="card">
+        <div class="n">04 — Offer a ladder</div>
+        <p><em>"If you don't see the general argument, do d=2 and d=3 first and we'll look together."</em> This converts a bluff into a computation.</p>
+      </div>
+      <div class="card">
+        <div class="n">05 — Give permission to fail</div>
+        <p>"Prove it <strong>or break it</strong>." Without the second branch, you will always get a proof — including of false statements.</p>
+      </div>
+      <div class="card">
+        <div class="n">06 — Do the reduction yourself</div>
+        <p>The turning point was me rewriting the conjecture into something small. The model was a good checker of my reduction and a bad author of its own.</p>
+      </div>
+      <div class="card">
+        <div class="n">07 — Ban argument by analogy</div>
+        <p><em>"A precise reference that exactly applies — no hand-waving using similarities between arguments."</em> Name-dropping a theorem is the most common way a gap gets hidden.</p>
+      </div>
+      <div class="card">
+        <div class="n">08 — Don't let it praise the answer</div>
+        <p>Cross-model approval is theater. "Fantastic," "bulletproof," "tour de force" — all produced on demand, about a proof the same model failed to find.</p>
+      </div>
+      <div class="card">
+        <div class="n">09 — Say when an idea is dead</div>
+        <p>Long threads drag discarded hypotheses forward. <em>"That's thrown out already, let it go"</em> — or open a fresh window.</p>
+      </div>
+      <div class="card">
+        <div class="n">10 — Don't lead the witness</div>
+        <p>When you suspect an error: <em>"It's possible it is correct, so don't force a mistake, just redo all my steps."</em> Otherwise you'll get the error you asked for.</p>
+      </div>
+    </div>
+
+    <hr class="sep">
+
+    <h2 style="margin-top:.4em">And the uncomfortable part.</h2>
+    <ul class="arrowlist">
+      <li>Both models produced <strong>false proofs that look exactly like true ones</strong>. Formatting, citations, confidence — all identical.</li>
+      <li>Every correction I extracted was correct <em>and</em> was immediately followed by a new error of the same kind. Being right about the objection did not fix the process.</li>
+      <li>The proof that finally worked <strong>is</strong> genuinely a model's work. It is explicit, checkable, and it corrected a sign I had wrong. This is not a story about AI being useless.</li>
+      <li>It is a story about where the mathematician has to stand: <strong>owning the reduction, setting the acceptance criterion, and checking every line.</strong></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide auto">
+  <div class="wrap footer">
+    <p><strong>Sources.</strong> Three exported transcripts from one working session: two Google AI Studio (Gemini) conversations and one ChatGPT conversation, plus the successive <code>.tex</code> revisions of the paper. Quotations from my own prompts are verbatim. Model quotations are verbatim where the export preserved them; the Gemini export is partly a summary, and those reactions are paraphrased from it.</p>
+  </div>
+</section>
+
+<script>
+const bar=document.getElementById('bar');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  bar.style.width=p+'%';
+},{passive:true});
+</script>
+</body>
+</html>
