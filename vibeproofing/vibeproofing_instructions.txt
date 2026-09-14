@@ -1,0 +1,40 @@
+VIBEPROOFING: GETTING STARTED
+
+Use ChatGPT or Claude in ordinary web chat. Bring a mathematical question
+you care about, along with any relevant definitions or attempted argument.
+
+OPENING PROMPT
+
+I'm a mathematician working on the question below. Work with me as a
+mathematical collaborator. Start with your assessment of the problem and
+the most promising next step. If you see a short complete proof, give it.
+Otherwise, develop the first substantive step and pause so that I can
+respond. State precisely any lemma you are assuming.
+
+Here is my question:
+[Insert your question and relevant definitions or hypotheses.]
+
+Here is what I have tried, and where I am stuck:
+[Describe your attempt or the specific point you want help with.]
+
+MODEL SETTINGS
+
+- ChatGPT: Start with GPT-5.6 Sol at Medium reasoning, if available.
+  Increase effort when you have isolated a difficult step.
+
+- Claude: With Fable 5.1 or Opus 5, start with High effort, which Claude
+  recommends as a balance of quality and speed. Click the model name
+  beside Send, then Effort. Reserve Extra High or Max for a difficult
+  step. Thinking cannot be switched off for these models in web chat.
+
+Available models and controls depend on your account. These settings and
+the prompt do not guarantee a response time. If a request takes several
+minutes without a usable response, consider interrupting and asking a
+smaller question.
+
+Read and question the mathematics as it arrives. A complete solution is
+welcome: understanding and checking it can be the next part of your work.
+
+Settings checked September 14, 2026:
+ChatGPT: https://help.openai.com/en/articles/20001354
+Claude: https://support.claude.com/en/articles/8664678-change-the-model-effort-and-thinking-settings
